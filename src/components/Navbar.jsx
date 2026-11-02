@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import { useAuth } from "../context/AuthContext";
 import { useJobs } from "../context/JobContext";
+import { Tooltip } from "./Tooltip";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,23 +39,31 @@ const Navbar = () => {
             </div>
             <div className="hidden md:block">
               <div className="ml-12 flex items-center space-x-1">
-                <Link
-                  to="/jobs"
-                  className={`relative group px-4 py-3 text-sm font-semibold transition-all duration-300 ${
-                    isActive("/jobs")
-                      ? "text-primary-600 dark:text-primary-400"
-                      : "text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400"
-                  }`}
+                <Tooltip
+                  id="tooltip-find-jobs"
+                  title="Find Jobs"
+                  placement="bottom"
+                  content="Browse open positions, search by title or location, and filter to find the role that fits you."
                 >
-                  <span className="relative z-10">Find Jobs</span>
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-r from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20 rounded-xl transition-all duration-300 transform group-hover:scale-105 ${
+                  <Link
+                    to="/jobs"
+                    aria-describedby="tooltip-find-jobs"
+                    className={`relative group px-4 py-3 text-sm font-semibold transition-all duration-300 ${
                       isActive("/jobs")
-                        ? "opacity-100"
-                        : "opacity-0 group-hover:opacity-100"
+                        ? "text-primary-600 dark:text-primary-400"
+                        : "text-gray-900 dark:text-gray-100 hover:text-primary-600 dark:hover:text-primary-400"
                     }`}
-                  ></div>
-                </Link>
+                  >
+                    <span className="relative z-10">Find Jobs</span>
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-r from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20 rounded-xl transition-all duration-300 transform group-hover:scale-105 ${
+                        isActive("/jobs")
+                          ? "opacity-100"
+                          : "opacity-0 group-hover:opacity-100"
+                      }`}
+                    ></div>
+                  </Link>
+                </Tooltip>
                 <Link
                   to="/companies"
                   title="Browse top companies that are hiring and explore their open positions"
